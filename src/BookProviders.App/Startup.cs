@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BookProviders.App.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BookProviders.Data.Context;
 
 namespace BookProviders.App
 {
@@ -34,9 +35,13 @@ namespace BookProviders.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddDbContext<BookProvidersContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

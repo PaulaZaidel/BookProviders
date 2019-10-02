@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace BookProviders.Data.Context
 {
-    class BookProvidersContext : DbContext
+    public class BookProvidersContext : DbContext
     {
-        public BookProvidersContext(DbContextOptions options) : base(options) { }
+        public BookProvidersContext(DbContextOptions<BookProvidersContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Caterer> Caterers { get; set; }
