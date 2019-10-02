@@ -7,7 +7,7 @@ namespace BookProviders.Business.Models
         public string Name { get; set; }
         public string Document { get; set; }
         public CatererType CatererType { get; set; }
-        public Adress Adress { get; set; }
+        public Address Adress { get; set; }
         public bool Active { get; set; }
 
         //EF Relations

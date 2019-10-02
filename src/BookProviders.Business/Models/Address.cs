@@ -3,7 +3,7 @@ using System;
 
 namespace BookProviders.Business.Models
 {
-    public class Adress : Entity
+    public class Address : Entity
     {
         public Guid CatererId { get; set; }
         public string Street { get; set; }
