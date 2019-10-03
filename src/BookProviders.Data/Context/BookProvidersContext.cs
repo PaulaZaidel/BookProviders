@@ -11,7 +11,7 @@ namespace BookProviders.Data.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Caterer> Caterers { get; set; }
-        public DbSet<Address> Adresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
