@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BookProviders.Data.Context;
 using BookProviders.Business.Interfaces;
 using BookProviders.Data.Repositories;
+using AutoMapper;
 
 namespace BookProviders.App
 {
@@ -46,6 +47,8 @@ namespace BookProviders.App
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
