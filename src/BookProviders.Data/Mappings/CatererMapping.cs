@@ -19,8 +19,8 @@ namespace BookProviders.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
-            //1:1 => Caterer : Adress
-            builder.HasOne(c => c.Adress)
+            //1:1 => Caterer : Address
+            builder.HasOne(c => c.Address)
                 .WithOne(a => a.Caterer);
 
             //1:N => Caterer : Products

@@ -19,7 +19,7 @@ namespace BookProviders.App.ViewModels
 
         [Display(Name = "Type")]
         public int CatererType { get; set; }
-        public AddressViewModels Adress { get; set; }
+        public AddressViewModels Address { get; set; }
 
         [Display(Name = "Active?")]
         public bool Active { get; set; }

@@ -15,7 +15,7 @@ namespace BookProviders.Data.Repositories
         public async Task<Caterer> GetCatererAddressAndProducs(Guid id)
         {
             return await Context.Caterers.AsNoTracking()
-                .Include(c => c.Adress)
+                .Include(c => c.Address)
                 .Include(c => c.Products)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
@@ -23,7 +23,7 @@ namespace BookProviders.Data.Repositories
         public async Task<Caterer> GetCatererAndAddress(Guid id)
         {
             return await Context.Caterers.AsNoTracking()
-                .Include(c => c.Adress)
+                .Include(c => c.Address)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
