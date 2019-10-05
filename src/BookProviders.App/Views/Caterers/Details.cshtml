@@ -1,13 +1,12 @@
 ﻿@model BookProviders.App.ViewModels.CatererViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Caterer Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>CatererViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-times"></i> Cancel</a>
 </div>
