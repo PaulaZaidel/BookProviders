@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookProviders.App.ViewModels
@@ -21,6 +22,7 @@ namespace BookProviders.App.ViewModels
         [StringLength(1000, ErrorMessage = "The field {0} must be between {2} and {1} characters", MinimumLength = 2)]
         public string Description { get; set; }
 
+        [Display(Name = "Product Image")]
         public IFormFile ImageUpload { get; set; }
 
         public string Image { get; set; }
@@ -35,5 +37,6 @@ namespace BookProviders.App.ViewModels
         public bool Active { get; set; }
 
         public CatererViewModel Caterer { get; set; }
+        public IEnumerable<CatererViewModel> Caterers{ get; set; }
     }
 }
