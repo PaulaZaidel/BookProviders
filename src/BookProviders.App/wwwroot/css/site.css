@@ -7,3 +7,15 @@ footer {
     position: absolute; 
     bottom: 0;
 }
+
+input, 
+select, 
+file,
+textarea {
+    max-width: 400px;
+}
+
+.img {
+    width: 70px;
+    height: 100px;
+}

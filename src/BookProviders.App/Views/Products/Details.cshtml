@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Image)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            <img src="~/images/products/@Model.Image" alt="@Model.Image" class="img" />
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Price)

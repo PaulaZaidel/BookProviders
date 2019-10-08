@@ -6,6 +6,8 @@ using BookProviders.App.ViewModels;
 using BookProviders.Business.Interfaces;
 using AutoMapper;
 using BookProviders.Business.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace BookProviders.App.Controllers
 {
@@ -55,9 +57,14 @@ namespace BookProviders.App.Controllers
             if (!ModelState.IsValid)
                 return NotFound();
 
+            var profixImg = Guid.NewGuid() + "_";
+            if (!await UploadImage(model.ImageUpload, profixImg))
+                return View(model);
+
+            model.Image = profixImg + model.ImageUpload.FileName;
             await _repo.Add(_mapper.Map<Product>(model));
 
-            return RedirectToAction("Indext");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(Guid id)
@@ -77,10 +84,28 @@ namespace BookProviders.App.Controllers
             if (id != model.Id)
                 return NotFound();
 
+            var product = await GetProduct(id);
+            model.Caterer = product.Caterer;
+            model.Image = product.Image;
+
             if (!ModelState.IsValid)
                 return NotFound();
 
-            await _repo.Update(_mapper.Map<Product>(model));
+            if (model.ImageUpload != null)
+            {
+                var profixImg = Guid.NewGuid() + "_";
+                if (!await UploadImage(model.ImageUpload, profixImg))
+                    return View(model);
+
+                product.Image = profixImg + model.ImageUpload.FileName;
+            }
+
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.Price = model.Price;
+            product.Active = model.Active;
+
+            await _repo.Update(_mapper.Map<Product>(product));
 
             return RedirectToAction("Index");
         }
@@ -121,6 +146,26 @@ namespace BookProviders.App.Controllers
         {
             model.Caterers = _mapper.Map<IEnumerable<CatererViewModel>>(await _repoCaterer.GetAll());
             return model;
+        }
+
+        private async Task<bool> UploadImage(IFormFile file, string prefixImg)
+        {
+            if (file.Length <= 0)
+                return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", prefixImg + file.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "File already exists!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create)){
+                await file.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }

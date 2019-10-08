@@ -9,7 +9,7 @@
 <hr />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -34,7 +34,8 @@
                 <label asp-for="ImageUpload" class="control-label"></label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="ImageUpload" asp-for="ImageUpload" />
-                    <label data-browse="Procurar" class="custom-file-label" for="ImageUpload" style="width:400px"></label>
+                    <label data-browse="Search" class="custom-file-label" for="ImageUpload" style="width:400px"></label>
+                    <label id="img-name"></label>
                 </div>
                 <span asp-validation-for="ImageUpload" class="text-danger"></span>
             </div>
@@ -60,9 +61,13 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
- 
+
     <script>
+        $('#ImageUpload').change(function () {
+            $('#img-name').text(this.files[0].name)
+        })
+
         $("#ImageUpload").attr("data-val", "true")
         $("#ImageUpload").attr("data-val-required", "Required")
-    </script>   
+    </script>
 }
