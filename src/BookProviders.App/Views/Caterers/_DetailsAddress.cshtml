@@ -1,0 +1,53 @@
+﻿@model BookProviders.App.ViewModels.CatererViewModel
+
+<h4>Address</h4>
+<hr />
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead class="table-primary">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.Street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.ZipCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.State)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Address.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Address.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Address.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Address.State)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+

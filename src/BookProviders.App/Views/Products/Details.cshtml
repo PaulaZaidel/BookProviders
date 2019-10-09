@@ -1,53 +1,52 @@
 ﻿@model BookProviders.App.ViewModels.ProductViewModel
 
 @{
-    ViewData["Title"] = "Product Details";
+    ViewData["Title"] = "Product Details - " + Model.Name; 
 }
 
 <h2>@ViewData["Title"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/images/products/@Model.Image" alt="@Model.Image" style="width: 300px; height: 428px;" />
+    </div>
+    <div class="col-md-8">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd>
-            <img src="~/images/products/@Model.Image" alt="@Model.Image" class="img" />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Caterer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Caterer.Document)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
-    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-times"></i> Cancel</a>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd>
+                @Model.Price.ToString("C")
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Caterer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Caterer.Document)
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+            <a href="javascript:window.history.back()" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
 </div>

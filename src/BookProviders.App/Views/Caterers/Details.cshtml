@@ -1,41 +1,36 @@
-﻿@model BookProviders.App.ViewModels.CatererViewModel
+﻿@using BookProviders.App.Helpers
+@model BookProviders.App.ViewModels.CatererViewModel
 
 @{
-    ViewData["Title"] = "Caterer Details";
+    ViewData["Title"] = "Caterer Details - " + @Model.Name;
 }
 
 <h2>@ViewData["Title"]</h2>
+<hr />
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Document)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Document)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CatererType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CatererType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
-    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-times"></i> Cancel</a>
+<div class="col-md-12">
+    <table class="table">
+        <thead class="table-primary">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Document)</th>
+                <th>@Html.DisplayNameFor(model => model.Active)</th>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Name)</td>
+                <td>@this.FormatDocument(Model.CatererType, Model.Document)</td>
+                <td>@Html.DisplayFor(model => model.Active)</td>
+                <td class="text-right">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <partial name="_DetailsAddress" />
+
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back</a>
 </div>

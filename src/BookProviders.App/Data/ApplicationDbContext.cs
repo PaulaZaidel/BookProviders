@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BookProviders.App.ViewModels;
 
 namespace BookProviders.App.Data
 {
@@ -12,5 +13,6 @@ namespace BookProviders.App.Data
             : base(options)
         {
         }
+        public DbSet<BookProviders.App.ViewModels.AddressViewModels> AddressViewModels { get; set; }
     }
 }
