@@ -16,6 +16,8 @@ using BookProviders.Data.Context;
 using BookProviders.Business.Interfaces;
 using BookProviders.Data.Repositories;
 using AutoMapper;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace BookProviders.App
 {
@@ -77,6 +79,16 @@ namespace BookProviders.App
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            var defaultCulture = CultureInfo.CurrentCulture;
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(defaultCulture),
+                SupportedCultures = new List<CultureInfo> { defaultCulture },
+                SupportedUICultures = new List<CultureInfo> { defaultCulture }
+            };
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseMvc(routes =>
             {
