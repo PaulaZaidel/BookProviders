@@ -8,6 +8,9 @@
 !**/wwwroot/images/productss
 
 **/wwwroot/lib/*
+!**/wwwroot/lib/jquery
+!**/wwwroot/lib/jquery-validation
+!**/wwwroot/lib/jquery-validation-unobtrusive
 
 # User-specific files
 *.suo
