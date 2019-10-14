@@ -12,11 +12,13 @@ namespace BookProviders.App.Controllers
     public class CaterersController : BaseController
     {
         private readonly ICatererRepository _repo;
+        private readonly IAddressRepository _repoAddress;
         private readonly IMapper _mapper;
 
-        public CaterersController(ICatererRepository repo, IMapper mapper)
+        public CaterersController(ICatererRepository repo, IAddressRepository repoAddress, IMapper mapper)
         {
             _repo = repo;
+            _repoAddress = repoAddress;
             _mapper = mapper;
         }
 
@@ -102,6 +104,43 @@ namespace BookProviders.App.Controllers
             await _repo.Remove(id);
             
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> GetAddress(Guid id)
+        {
+            var caterer = await GetCatererAndAddress(id);
+
+            if (caterer == null)
+                return NotFound();
+
+            return PartialView("_DetailsAddress", caterer);
+        }
+
+        public async Task<IActionResult> UpdateAddress (Guid id)
+        {
+            var caterer = await GetCatererAndAddress(id);
+
+            if (caterer == null)
+                return NotFound();
+
+            return PartialView("_UpdateAddress", 
+                new CatererViewModel { Address = caterer.Address });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAddress(CatererViewModel model)
+        {
+            ModelState.Remove("Name");
+            ModelState.Remove("Document");
+
+            if(!ModelState.IsValid)
+                return PartialView("_UpdateAddress", model);
+
+            await _repoAddress.Update(_mapper.Map<Address>(model.Address));
+
+            var url = Url.Action("GetAddress", "Caterers", new { id = model.Id });
+            return Json(new { success = true, url });
         }
 
         private async Task<CatererViewModel> GetCatererAndAddress(Guid id)

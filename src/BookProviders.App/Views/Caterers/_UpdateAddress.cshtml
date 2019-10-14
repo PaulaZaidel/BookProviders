@@ -1,0 +1,25 @@
+﻿@model BookProviders.App.ViewModels.CatererViewModel
+
+@{
+    ViewData["title"] = "Update Address";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewData["title"]</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form asp-action="UpdateAddress">
+    <div class="modal-body">
+        <input type="hidden" asp-for="Address.CatererId" />
+        <input type="hidden" asp-for="Address.Id" />
+
+        <partial name="_Address" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save changes</button>
+    </div>
+</form>
