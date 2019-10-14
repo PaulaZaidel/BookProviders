@@ -18,6 +18,7 @@ To know more about how to setup your enviroment visit the [Microsoft .NET Downlo
 - ASP.NET Identity Core
 - Entity Framework Core 2.2
 - AutoMapper
+- FluentValidation
 
 ### Architecture
 - Full architecture with responsibility separation concerns, SOLID and Clean Code
