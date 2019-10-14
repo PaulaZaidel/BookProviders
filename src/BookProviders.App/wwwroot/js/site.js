@@ -37,3 +37,51 @@ function ajaxModal() {
     }
 }
 
+function cepSearch() {
+    $(document).ready(function () {
+        function cleanForm() {
+            $("#Address_Street").val("");
+            $("#Address_Number").val("");
+            $("#Address_City").val("");
+            $("#Address_State").val("");
+        }
+
+        $("#Address_ZipCode").blur(function () {
+            // Get only number
+            var zipCode = $(this).val().replace(/\D/g, "");
+
+            if (zipCode !== "") {
+                var zipCodeIsValid = /^[0-9]{8}$/;
+
+                // While browsing webservices
+                if (zipCodeIsValid.test(zipCode)) {
+                    $("#Address_Street").val("...");
+                    $("#Address_Number").val("...");
+                    $("#Address_City").val("...");
+                    $("#Address_State").val("...");
+
+                    // Query webservices
+                    $.getJSON("https://viacep.com.br/ws/" + zipCode + "/json/?callback=?",
+                        function (result) {
+                            if (!("erro" in result)) {
+                                $("#Address_Street").val(result.logradouro + ", " + result.bairro);
+                                $("#Address_Number").val(result.complemento);
+                                $("#Address_City").val(result.localidade);
+                                $("#Address_State").val(result.uf);
+                            } else {
+                                cleanForm();
+                                alert("Not Found Address");
+                            }
+                        }
+                    );
+                } else {
+                    cleanForm();
+                    alert("Invalid ZipCode!");
+                }
+            } else {
+                // Empty ZipCode
+                cleanForm();
+            }
+        });
+    });
+}
