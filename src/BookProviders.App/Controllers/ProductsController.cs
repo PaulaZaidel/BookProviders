@@ -31,6 +31,7 @@ namespace BookProviders.App.Controllers
             return View(model);
         }
 
+        [Route("Details/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var model = await GetProduct(id);
@@ -67,6 +68,7 @@ namespace BookProviders.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("Edit/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var model = await GetProduct(id);
