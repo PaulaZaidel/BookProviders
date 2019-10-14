@@ -24,4 +24,4 @@ To know more about how to setup your enviroment visit the [Microsoft .NET Downlo
 - Repository and Generic Repository
 
 ### About
-- The Book Providers Project was developed by [Paula Zaidel](https://www.linkedin.com/in/paulazaidel/) under the MIT License.
+- The Book Providers Project was developed by [Paula Zaidel](https://www.linkedin.com/in/paulazaidel/).
