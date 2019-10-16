@@ -12,14 +12,15 @@ namespace BookProviders.App.Controllers
     public class CaterersController : BaseController
     {
         private readonly ICatererRepository _repo;
-        private readonly IAddressRepository _repoAddress;
+        private readonly ICatererService _service;
         private readonly IMapper _mapper;
 
-        public CaterersController(ICatererRepository repo, IAddressRepository repoAddress, IMapper mapper)
+        public CaterersController(ICatererRepository repo, ICatererService service, 
+                                 IMapper mapper, INotifier notifier) : base(notifier)
         {
             _repo = repo;
-            _repoAddress = repoAddress;
             _mapper = mapper;
+           _service = service;
         }
 
         public async Task<IActionResult> Index()
@@ -52,7 +53,10 @@ namespace BookProviders.App.Controllers
                 return View(model);
 
             var caterer = _mapper.Map<Caterer>(model);
-            await _repo.Add(caterer);
+            await _service.Add(caterer);
+
+            if (!ValidOperation())
+                return View(model);
 
             return RedirectToAction("Index");
         }
@@ -79,8 +83,11 @@ namespace BookProviders.App.Controllers
                 return View(model);
 
             var caterer = _mapper.Map<Caterer>(model);
-            await _repo.Update(caterer);
-            
+            await _service.Update(caterer);
+
+            if (!ValidOperation())
+                return View(model);
+
             return RedirectToAction("Index");
         }
 
@@ -103,8 +110,13 @@ namespace BookProviders.App.Controllers
             if (model == null)
                 return NotFound();
 
-            await _repo.Remove(id);
-            
+            await _service.Remove(id);
+
+            if (!ValidOperation())
+                return View(model);
+
+            TempData["Success"] = "Caterer deleted!";
+
             return RedirectToAction("Index");
         }
 
@@ -141,7 +153,10 @@ namespace BookProviders.App.Controllers
             if(!ModelState.IsValid)
                 return PartialView("_UpdateAddress", model);
 
-            await _repoAddress.Update(_mapper.Map<Address>(model.Address));
+            await _service.UpdateAddress(_mapper.Map<Address>(model.Address));
+
+            if (!ValidOperation())
+                return PartialView("_UpdateAddress", model);
 
             var url = Url.Action("GetAddress", "Caterers", new { id = model.Id });
             return Json(new { success = true, url });

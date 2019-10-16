@@ -7,10 +7,16 @@
 <h2>@ViewData["Title"]</h2>
 
 <hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <vc:summary></vc:summary>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             
             <div class="form-group">

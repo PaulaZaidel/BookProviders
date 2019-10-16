@@ -15,12 +15,15 @@ namespace BookProviders.App.Controllers
     {
         private readonly IProductRepository _repo;
         private readonly ICatererRepository _repoCaterer;
+        private readonly IProductService _service;
         private readonly IMapper _mapper;
 
-        public ProductsController(IProductRepository repo, ICatererRepository repoCaterer, IMapper mapper)
+        public ProductsController(IProductRepository repo, ICatererRepository repoCaterer, 
+                                  IProductService service,  IMapper mapper, INotifier notifier) : base(notifier)
         {
             _repo = repo;
             _repoCaterer = repoCaterer;
+            _service = service;
             _mapper = mapper;
         }
 
@@ -63,7 +66,11 @@ namespace BookProviders.App.Controllers
                 return View(model);
 
             model.Image = profixImg + model.ImageUpload.FileName;
-            await _repo.Add(_mapper.Map<Product>(model));
+            
+            await _service.Add(_mapper.Map<Product>(model));
+
+            if (!ValidOperation())
+                return View(model);
 
             return RedirectToAction("Index");
         }
@@ -107,7 +114,10 @@ namespace BookProviders.App.Controllers
             product.Price = model.Price;
             product.Active = model.Active;
 
-            await _repo.Update(_mapper.Map<Product>(product));
+            await _service.Update(_mapper.Map<Product>(product));
+
+            if (!ValidOperation())
+                return View(model);
 
             return RedirectToAction("Index");
         }
@@ -132,7 +142,12 @@ namespace BookProviders.App.Controllers
             if (model == null)
                 return NotFound();
 
-            await _repo.Remove(id);
+            await _service.Remove(id);
+
+            if (!ValidOperation())
+                return View(model);
+
+            TempData["Success"] = "Product deleted!";
 
             return RedirectToAction("Index");
         }

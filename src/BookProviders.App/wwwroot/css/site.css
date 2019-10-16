@@ -3,11 +3,6 @@
     margin: 15px;
 }
 
-footer {
-    position: absolute; 
-    bottom: 0;
-}
-
 input, 
 select, 
 file,
