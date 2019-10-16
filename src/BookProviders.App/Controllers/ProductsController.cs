@@ -8,9 +8,12 @@ using AutoMapper;
 using BookProviders.Business.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using BookProviders.App.Helpers;
 
 namespace BookProviders.App.Controllers
 {
+    [Authorize]
     public class ProductsController : BaseController
     {
         private readonly IProductRepository _repo;
@@ -27,6 +30,7 @@ namespace BookProviders.App.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = _mapper.Map<IEnumerable<ProductViewModel>>(await _repo.GetProductsAndCaterers());
@@ -34,7 +38,8 @@ namespace BookProviders.App.Controllers
             return View(model);
         }
 
-        [Route("Details/{id:guid}")]
+        [AllowAnonymous]
+        [Route("Products/Details/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var model = await GetProduct(id);
@@ -45,6 +50,7 @@ namespace BookProviders.App.Controllers
             return View(model);
         }
 
+        [ClaimsAuthorize("Product","AddNew")]
         public async Task<IActionResult> Create()
         {
             var model = await GetCaterers(new ProductViewModel());
@@ -54,6 +60,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ClaimsAuthorize("Product", "AddNew")]
         public async Task<IActionResult> Create(ProductViewModel model)
         {
             model = await GetCaterers(model);
@@ -75,7 +82,8 @@ namespace BookProviders.App.Controllers
             return RedirectToAction("Index");
         }
 
-        [Route("Edit/{id:guid}")]
+        [Route("Product/Edit/{id:guid}")]
+        [ClaimsAuthorize("Product", "Edit")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var model = await GetProduct(id);
@@ -88,6 +96,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ClaimsAuthorize("Product", "Edit")]
         public async Task<IActionResult> Edit(Guid id, ProductViewModel model)
         {
             if (id != model.Id)
@@ -122,6 +131,8 @@ namespace BookProviders.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [ClaimsAuthorize("Product", "Delete")]
+        [Route("Products/Delete/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var model = await GetProduct(id);
@@ -134,6 +145,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [ClaimsAuthorize("Product", "Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
 

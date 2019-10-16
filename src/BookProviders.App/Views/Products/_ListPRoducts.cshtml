@@ -41,8 +41,12 @@
                 </td>
                 <td class="text-right">
                     <a class="btn btn-info" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-search"></i></a>
-                    <a class="btn btn-warning" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-alt"></i></a>
+                    <a class="btn btn-warning" 
+                       supress-claim-name="Product" supress-claim-value="Edit" 
+                       asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger" 
+                       supress-by-claim-name="Product" supress-by-claim-value="Delete" 
+                       asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-alt"></i></a>
                 </td>
             </tr>
         }
