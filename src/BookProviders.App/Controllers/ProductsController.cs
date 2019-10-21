@@ -50,7 +50,7 @@ namespace BookProviders.App.Controllers
             return View(model);
         }
 
-        [ClaimsAuthorize("Product","AddNew")]
+        //[ClaimsAuthorize("Product","AddNew")]
         public async Task<IActionResult> Create()
         {
             var model = await GetCaterers(new ProductViewModel());
@@ -60,7 +60,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ClaimsAuthorize("Product", "AddNew")]
+        //[ClaimsAuthorize("Product", "AddNew")]
         public async Task<IActionResult> Create(ProductViewModel model)
         {
             model = await GetCaterers(model);
@@ -83,7 +83,7 @@ namespace BookProviders.App.Controllers
         }
 
         [Route("Product/Edit/{id:guid}")]
-        [ClaimsAuthorize("Product", "Edit")]
+        //[ClaimsAuthorize("Product", "Edit")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var model = await GetProduct(id);
@@ -96,7 +96,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ClaimsAuthorize("Product", "Edit")]
+        //[ClaimsAuthorize("Product", "Edit")]
         public async Task<IActionResult> Edit(Guid id, ProductViewModel model)
         {
             if (id != model.Id)
@@ -131,7 +131,7 @@ namespace BookProviders.App.Controllers
             return RedirectToAction("Index");
         }
 
-        [ClaimsAuthorize("Product", "Delete")]
+        //[ClaimsAuthorize("Product", "Delete")]
         [Route("Products/Delete/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -145,7 +145,7 @@ namespace BookProviders.App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [ClaimsAuthorize("Product", "Delete")]
+        //[ClaimsAuthorize("Product", "Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
 

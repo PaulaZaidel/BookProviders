@@ -17,6 +17,7 @@ namespace BookProviders.App.ViewModels
         [StringLength(50, ErrorMessage = "The field {0} must be between {2} and {1} characters", MinimumLength = 1)]
         public string Number { get; set; }
 
+        [Display(Name = "CEP")]
         [Required(ErrorMessage = "Required")]
         [StringLength(8, ErrorMessage = "The field {0} must be between {2} and {1} characters", MinimumLength = 2)]
         public string ZipCode { get; set; }
